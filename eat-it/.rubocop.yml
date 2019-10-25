@@ -1,0 +1,62 @@
+AllCops:
+  TargetRubyVersion: 2.6.1
+  Exclude:
+    - 'bin/*'
+    - 'db/schema.rb'
+    - 'spec/spec_helper.rb'
+    - 'spec/rails_helper.rb'
+    - 'db/migrate/*'
+    - 'config/**/*'
+    - 'test/*'
+
+Metrics/LineLength:
+  Max: 150
+  Exclude:
+    - 'app/models/experience_location.rb'
+
+Metrics/ClassLength:
+  Max: 200
+  Exclude:
+    - 'app/controllers/admin/experiences_controller.rb'
+
+Metrics/BlockLength:
+  ExcludedMethods: ['json.data', 'register', 'schema', 'index', 'show', 'form' ,'describe', 'context', 'before', 'namespace', 'task', 'included', 'params', 'factory', 'define', 'get', 'shared_examples', 'shared_context']
+  Exclude:
+    - 'spec/services/create_match_service_spec.rb'
+    - 'app/views/api/mobile/v1/attendees/details.json.jbuilder'
+    - 'app/validators/api/web/v1/order_schema.rb'
+
+Metrics/PerceivedComplexity:
+  Max: 8
+
+Metrics/MethodLength:
+  Max: 25
+  Exclude:
+    - 'app/mailers/application_mailer.rb'
+    - 'app/policies/employee_access_policy.rb'
+    - 'app/policies/employer_access_policy.rb'
+
+Metrics/CyclomaticComplexity:
+  Max: 8
+
+Documentation:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Exclude:
+    - 'lib/tasks/**/*'
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 35
+  Exclude:
+    - 'app/lib/send_grid/factories/*'
+    - 'app/services/invoice_service.rb'
+    - 'app/services/create_experience_service.rb'
+    - 'app/controllers/admin/experiences_controller.rb'
+    - 'app/services/create_experience_events_service.rb'
+
+Naming:
+  Enabled: false
