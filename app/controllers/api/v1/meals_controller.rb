@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    class HomeController < ApplicationController
+    class MealsController < ::Api::BaseController
       def index
         @meals = Meal.all
       end
