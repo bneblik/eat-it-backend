@@ -1,5 +1,6 @@
-ActiveAdmin.register Product do
+# frozen_string_literal: true
 
+ActiveAdmin.register Product do
   menu parent: 'Food'
   permit_params :name, :calories
 

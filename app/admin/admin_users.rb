@@ -1,5 +1,6 @@
-ActiveAdmin.register AdminUser do
+# frozen_string_literal: true
 
+ActiveAdmin.register AdminUser do
   menu parent: 'System Management'
   permit_params :email, :password, :password_confirmation
 
@@ -26,5 +27,4 @@ ActiveAdmin.register AdminUser do
     end
     f.actions
   end
-
 end

@@ -1,5 +1,6 @@
-ActiveAdmin.register Meal do
+# frozen_string_literal: true
 
+ActiveAdmin.register Meal do
   menu parent: 'Food'
   permit_params :name, :recipe
 
