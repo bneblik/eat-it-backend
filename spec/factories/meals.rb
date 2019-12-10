@@ -6,4 +6,3 @@ FactoryBot.define do
     recipe { Faker::Food.description }
   end
 end
-

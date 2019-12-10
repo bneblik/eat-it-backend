@@ -6,5 +6,3 @@ FactoryBot.define do
     calories { Faker::Number.between(0, 500) }
   end
 end
-
-
