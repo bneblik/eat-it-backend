@@ -1,0 +1,20 @@
+en:
+  errors:
+    or: "or"
+    array?: "must be an array"
+
+    empty?: "must be empty"
+
+    eql?: "must be equal to %{left}"
+
+    not_eql?: "must not be equal to %{left}"
+
+    filled?: "must be filled"
+
+    format?: "is in invalid format"
+
+    number?: "must be a number"
+
+    odd?: "must be odd"
+
+    even?: "must be even"
