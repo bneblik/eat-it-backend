@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_10_135901) do
+ActiveRecord::Schema.define(version: 2020_01_08_172657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,33 @@ ActiveRecord::Schema.define(version: 2019_12_10_135901) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "title", null: false
+    t.text "unit", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "fridge_product_associations", force: :cascade do |t|
+    t.bigint "fridge_id", null: false
+    t.bigint "product_id", null: false
+    t.integer "quantity", null: false
+    t.string "unit", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fridge_id"], name: "index_fridge_product_associations_on_fridge_id"
+    t.index ["product_id"], name: "index_fridge_product_associations_on_product_id"
+  end
+
+  create_table "fridges", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_fridges_on_user_id"
+  end
+
   create_table "meal_product_associations", force: :cascade do |t|
     t.bigint "meal_id", null: false
     t.bigint "product_id", null: false
@@ -66,6 +93,42 @@ ActiveRecord::Schema.define(version: 2019_12_10_135901) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "shopping_list_product_associations", force: :cascade do |t|
+    t.bigint "meal_id", null: false
+    t.bigint "product_id", null: false
+    t.integer "quantity", null: false
+    t.string "unit", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["meal_id"], name: "index_shopping_list_product_associations_on_meal_id"
+    t.index ["product_id"], name: "index_shopping_list_product_associations_on_product_id"
+  end
+
+  create_table "shopping_lists", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_shopping_lists_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "surname", null: false
+    t.string "nick"
+    t.string "email", null: false
+    t.decimal "age"
+    t.string "phone_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "comments", "users"
+  add_foreign_key "fridge_product_associations", "fridges"
+  add_foreign_key "fridge_product_associations", "products"
+  add_foreign_key "fridges", "users"
   add_foreign_key "meal_product_associations", "meals"
   add_foreign_key "meal_product_associations", "products"
+  add_foreign_key "shopping_list_product_associations", "meals"
+  add_foreign_key "shopping_list_product_associations", "products"
+  add_foreign_key "shopping_lists", "users"
 end
