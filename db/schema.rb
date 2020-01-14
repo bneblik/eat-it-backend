@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_08_172657) do
+ActiveRecord::Schema.define(version: 2020_01_14_205307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,12 @@ ActiveRecord::Schema.define(version: 2020_01_08_172657) do
     t.index ["user_id"], name: "index_fridges_on_user_id"
   end
 
+  create_table "meal_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "meal_product_associations", force: :cascade do |t|
     t.bigint "meal_id", null: false
     t.bigint "product_id", null: false
@@ -80,17 +86,34 @@ ActiveRecord::Schema.define(version: 2020_01_08_172657) do
   end
 
   create_table "meals", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "recipe", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "time", null: false
+    t.integer "servings", null: false
+    t.string "video"
+    t.integer "calories", default: 0
+    t.integer "fats", default: 0
+    t.integer "proteins", default: 0
+    t.integer "carbs", default: 0
+    t.string "description"
+  end
+
+  create_table "product_categories", force: :cascade do |t|
     t.string "name"
-    t.string "recipe"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "calories", null: false
+    t.integer "calories", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "fats", default: 0
+    t.integer "carbs", default: 0
+    t.integer "proteins", default: 0
   end
 
   create_table "shopping_list_product_associations", force: :cascade do |t|
