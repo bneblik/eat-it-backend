@@ -1,24 +1,12 @@
-# README
+# Eat-it Api
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Overview
+1. [Base URL](#base-url)
+1. [Pagination overview](#pagination-overview)
+1. [Authorization overview](#authorization-overview)
+1. [User](#user)
+1. [Login](#login)
 
-Things you may want to cover:
+### Base URL
+Staging endpoint: ``` localhost:3000 ```
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

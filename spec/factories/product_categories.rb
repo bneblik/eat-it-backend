@@ -1,36 +1,37 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :product_category do
-    name { "bread" }
+    name { 'bread' }
   end
   factory :product_category1, parent: :product_category do
-    name { "meat" }
+    name { 'meat' }
   end
   factory :product_category2, parent: :product_category do
-    name { "fishes and seafood" }
+    name { 'fishes and seafood' }
   end
   factory :product_category3, parent: :product_category do
-    name { "dairy" }
+    name { 'dairy' }
   end
   factory :product_category4, parent: :product_category do
-    name { "candies" }
+    name { 'candies' }
   end
   factory :product_category5, parent: :product_category do
-    name { "desserts" }
+    name { 'desserts' }
   end
   factory :product_category6, parent: :product_category do
-    name { "drinks" }
+    name { 'drinks' }
   end
   factory :product_category7, parent: :product_category do
-    name { "spices" }
+    name { 'spices' }
   end
   factory :product_category8, parent: :product_category do
-    name { "vegetables" }
+    name { 'vegetables' }
   end
   factory :product_category9, parent: :product_category do
-    name { "fruits" }
+    name { 'fruits' }
   end
   factory :product_category10, parent: :product_category do
-    name { "delicacies" }
+    name { 'delicacies' }
   end
-   
 end

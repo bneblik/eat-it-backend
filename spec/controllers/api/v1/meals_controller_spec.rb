@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe "Meals request", type: :request do
+RSpec.describe 'Meals request', type: :request do
   # let!(:user) { FactoryBot.create(:user) }
   let!(:meals) { FactoryBot.create_list(:meal, 3) }
 
@@ -64,7 +64,7 @@ RSpec.describe "Meals request", type: :request do
       end
 
       it 'create new meal' do
-        expect{subject}.to change{ Meal.count }.from(3).to(4)
+        expect { subject }.to change { Meal.count }.from(3).to(4)
       end
     end
 
@@ -80,7 +80,7 @@ RSpec.describe "Meals request", type: :request do
       end
 
       it 'not create new meal' do
-        expect{subject}.to_not change{ Meal.count }
+        expect { subject }.to_not change { Meal.count }.from(3)
       end
     end
   end
@@ -119,7 +119,7 @@ RSpec.describe "Meals request", type: :request do
     let(:url) { "/api/v1/meals/#{meals.first.id}.json" }
 
     it 'delete meal' do
-      expect{subject}.to change{ Meal.count }.from(3).to(2)
+      expect { subject }.to change { Meal.count }.from(3).to(2)
     end
   end
 end
