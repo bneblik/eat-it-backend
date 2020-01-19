@@ -4,7 +4,6 @@ class CreateFridges < ActiveRecord::Migration[5.2]
       t.string :name, null: false
       t.string :surname, null: false
       t.string :nick
-      t.string :email, null: false
       t.decimal :age
       t.string :phone_number
 

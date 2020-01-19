@@ -1,12 +1,13 @@
 class ChangeMealNameTimeServingsRecipeCaloriesFatsProteinsCarbs < ActiveRecord::Migration[5.2]
   def change
-    change_column :meals, :name, :string, null: false
-    change_column :meals, :time, :integer, null: false
-    change_column :meals, :servings, :integer, null: false
-    change_column :meals, :recipe, :string, null: false
-    change_column :meals, :calories, :integer, default: 0
-    change_column :meals, :fats, :integer, default: 0
-    change_column :meals, :proteins, :integer, default: 0
-    change_column :meals, :carbs, :integer, default: 0
+    change_column_null :meals, :name,  false
+    change_column_null :meals, :recipe,  false
+    change_column_null :meals, :time, false
+    change_column_null :meals, :servings,false
+
+    change_column_default :meals, :calories, from: nil, to: 0
+    change_column_default :meals, :fats,  from: nil, to: 0
+    change_column_default :meals, :proteins, from: nil, to: 0
+    change_column_default :meals, :carbs, from: nil, to: 0
   end
 end

@@ -90,6 +90,17 @@ Devise.setup do |config|
   # passing skip: :sessions to `devise_for` in your config/routes.rb
   config.skip_session_storage = [:http_auth]
 
+  config.jwt do |jwt|
+    jwt.secret = Rails.application.secrets.devise_jwt_secret_key
+    jwt.dispatch_requests = [
+      ['POST', %r{^\/api\/v1\/users\/sessions$}]
+    ]
+    jwt.revocation_requests = [
+      ['DELETE', %r{^\/api\/v1\/users\/logout$}]
+    ]
+    jwt.expiration_time = 1.day.to_i
+  end
+
   # By default, Devise cleans up the CSRF token on authentication to
   # avoid CSRF token fixation attacks. This means that, when using AJAX
   # requests for sign in and sign up, you need to get a new CSRF token
@@ -251,7 +262,7 @@ Devise.setup do |config|
   # should add them to the navigational formats lists.
   #
   # The "*/*" below is required to match Internet Explorer requests.
-  config.navigational_formats = [:json]
+  config.navigational_formats = []
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
