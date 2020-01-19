@@ -33,7 +33,7 @@ Metrics/MethodLength:
   Max: 25
   Exclude:
     - 'app/mailers/application_mailer.rb'
-    - 'app/policies/employee_access_policy.rb'
+    - 'app/policies/user_access_policy.rb'
     - 'app/policies/employer_access_policy.rb'
 
 Metrics/CyclomaticComplexity:
