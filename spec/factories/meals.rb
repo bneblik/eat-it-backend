@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :meal do
-    # association :user
+    association :user
     name { Faker::Food.dish }
     recipe { Faker::Food.description }
     servings { rand(1..5) }

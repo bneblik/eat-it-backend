@@ -5,7 +5,8 @@ FactoryBot.define do
     name { Faker::Name.first_name }
     surname { Faker::Name.last_name }
     nick { Faker::Name.initials }
-    email { "#{name}.#{surname}@eatit.net" }
+    password { 'password' }
+    email { Faker::Internet.email }
     age { 23 }
     phone_number { '+48543987456' }
   end

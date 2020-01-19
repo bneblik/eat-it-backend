@@ -18,22 +18,31 @@ module Api
 
       def update
         @meal = Meal.find(params[:id])
+        validate_user_permission
+
         @meal.update!(
           name: params[:name],
-          recipe: params[:recipe]
+          recipe: params[:recipe],
+          time: params[:time],
+          servings: params[:servings]
         )
       end
 
       def create
         @meal = Meal.create(
           name: params[:name],
-          recipe: params[:recipe]
+          recipe: params[:recipe],
+          time: params[:time],
+          servings: params[:servings],
+          user_id: current_user.id
         )
         @meal.save!
       end
 
       def destroy
         @meal = Meal.find(params[:id])
+        validate_user_permission
+
         @meal.destroy!
       end
 
@@ -44,6 +53,12 @@ module Api
         return if validation.success?
 
         render_unprocessable_entity(content: validation.messages(full: true))
+      end
+
+      def validate_user_permission
+        return if @meal.user.id == current_user.id
+
+        render_unprocessable_entity(content: 'You have no permission to this meal.')
       end
     end
   end

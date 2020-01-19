@@ -7,8 +7,7 @@ class OpenAccessPolicy < PolicyFinder
     {
       'api/v1/meals' => {
         'index' => true,
-        'show' => true,
-        'create' => true
+        'show' => true
       }
     }
   end

@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Meals request', type: :request do
-  # let!(:user) { FactoryBot.create(:user) }
-  let!(:meals) { FactoryBot.create_list(:meal, 3) }
+  let!(:user) { FactoryBot.create(:user) }
+  let!(:meals) { FactoryBot.create_list(:meal, 3, user: user) }
 
   describe 'GET #index' do
     before do
@@ -45,7 +45,7 @@ RSpec.describe 'Meals request', type: :request do
 
   describe 'GET #create' do
     subject do
-      post url, params: params, as: :json
+      post url, params: params, headers: define_jwt_headers(user)
       response
     end
 
@@ -55,7 +55,9 @@ RSpec.describe 'Meals request', type: :request do
       let(:params) do
         {
           name: 'Name',
-          recipe: 'Recipe'
+          recipe: 'Recipe',
+          time: '60',
+          servings: '2'
         }
       end
 
@@ -87,7 +89,7 @@ RSpec.describe 'Meals request', type: :request do
 
   describe 'GET #update' do
     subject do
-      put url, params: params, as: :json
+      put url, params: params, headers: define_jwt_headers(user)
       response
     end
 
@@ -95,7 +97,9 @@ RSpec.describe 'Meals request', type: :request do
     let(:params) do
       {
         name: 'Changed_name',
-        recipe: 'Changed_recipe'
+        recipe: 'Changed_recipe',
+        time: '60',
+        servings: '2'
       }
     end
 
@@ -112,7 +116,7 @@ RSpec.describe 'Meals request', type: :request do
 
   describe 'GET #destroy' do
     subject do
-      delete url
+      delete url, headers: define_jwt_headers(user)
       response
     end
 

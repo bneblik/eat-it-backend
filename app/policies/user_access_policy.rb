@@ -7,7 +7,8 @@ class UserAccessPolicy < PolicyFinder
     {
       'api/v1/meals' => {
         'update' => true,
-        'destroy' => true
+        'destroy' => true,
+        'create' => true
       }
     }
   end
