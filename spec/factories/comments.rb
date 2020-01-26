@@ -3,7 +3,8 @@
 FactoryBot.define do
   factory :comment do
     association :user
+    association :meal
     title { Faker::Lorem.sentences }
-    text { Faker::Lorem.paragraph(sentence_count: 5) }
+    text { Faker::Lorem.paragraph }
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_19_172858) do
+ActiveRecord::Schema.define(version: 2020_01_26_094417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,9 +44,11 @@ ActiveRecord::Schema.define(version: 2020_01_19_172858) do
   create_table "comments", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "title", null: false
-    t.text "unit", null: false
+    t.text "text", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "meal_id", null: false
+    t.index ["meal_id"], name: "index_comments_on_meal_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -54,7 +56,6 @@ ActiveRecord::Schema.define(version: 2020_01_19_172858) do
     t.bigint "fridge_id", null: false
     t.bigint "product_id", null: false
     t.integer "quantity", null: false
-    t.string "unit", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["fridge_id"], name: "index_fridge_product_associations_on_fridge_id"
@@ -84,7 +85,6 @@ ActiveRecord::Schema.define(version: 2020_01_19_172858) do
     t.bigint "meal_id", null: false
     t.bigint "product_id", null: false
     t.integer "quantity", null: false
-    t.string "unit", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["meal_id"], name: "index_meal_product_associations_on_meal_id"
@@ -122,17 +122,17 @@ ActiveRecord::Schema.define(version: 2020_01_19_172858) do
     t.integer "fats", default: 0
     t.integer "carbs", default: 0
     t.integer "proteins", default: 0
+    t.string "unit", default: "g", null: false
   end
 
   create_table "shopping_list_product_associations", force: :cascade do |t|
-    t.bigint "meal_id", null: false
     t.bigint "product_id", null: false
     t.integer "quantity", null: false
-    t.string "unit", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["meal_id"], name: "index_shopping_list_product_associations_on_meal_id"
+    t.bigint "shopping_list_id", null: false
     t.index ["product_id"], name: "index_shopping_list_product_associations_on_product_id"
+    t.index ["shopping_list_id"], name: "index_shopping_list_product_associations_on_shopping_list_id"
   end
 
   create_table "shopping_lists", force: :cascade do |t|
@@ -159,6 +159,7 @@ ActiveRecord::Schema.define(version: 2020_01_19_172858) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "comments", "meals"
   add_foreign_key "comments", "users"
   add_foreign_key "fridge_product_associations", "fridges"
   add_foreign_key "fridge_product_associations", "products"
@@ -166,7 +167,7 @@ ActiveRecord::Schema.define(version: 2020_01_19_172858) do
   add_foreign_key "meal_product_associations", "meals"
   add_foreign_key "meal_product_associations", "products"
   add_foreign_key "meals", "users"
-  add_foreign_key "shopping_list_product_associations", "meals"
   add_foreign_key "shopping_list_product_associations", "products"
+  add_foreign_key "shopping_list_product_associations", "shopping_lists"
   add_foreign_key "shopping_lists", "users"
 end

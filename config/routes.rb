@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  namespace :api do
+    namespace :v1 do
+      get 'comments/Property'
+    end
+  end
   devise_for :users
   devise_for :admin_users, ActiveAdmin::Devise.config
 
@@ -25,6 +30,10 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :meals
+      resources :products
+      resources :fridges
+      resources :comments
+      resources :shopping_lists
     end
   end
 end

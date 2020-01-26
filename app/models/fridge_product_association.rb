@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 class FridgeProductAssociation < ApplicationRecord
-  has_one :fridge
-  has_one :product
+  belongs_to :fridge
+  belongs_to :product
 end

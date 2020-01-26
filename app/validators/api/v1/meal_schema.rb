@@ -10,6 +10,8 @@ module Api
       define! do
         required(:name, :string).filled
         required(:recipe, :string).filled
+        required(:time, :integer).filled
+        required(:servings, :integer).filled
       end
     end
   end

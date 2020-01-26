@@ -8,6 +8,6 @@ FactoryBot.define do
     password { 'password' }
     email { Faker::Internet.email }
     age { 23 }
-    phone_number { '+48543987456' }
+    phone_number { '48543987456' }
   end
 end
