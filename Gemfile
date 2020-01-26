@@ -35,7 +35,6 @@ gem 'devise-jwt', '~> 0.5.9'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'bootsnap', '>= 1.1.0', require: false
   gem 'pry'
   gem 'rspec-rails'
   gem 'faker'
