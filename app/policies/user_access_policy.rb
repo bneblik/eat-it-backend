@@ -9,6 +9,23 @@ class UserAccessPolicy < PolicyFinder
         'update' => true,
         'destroy' => true,
         'create' => true
+      },
+      'api/v1/comments' => {
+        'update' => true,
+        'destroy' => true,
+        'create' => true
+      },
+      'api/v1/fridges' => {
+        'update' => true,
+        'destroy' => true,
+        'create' => true,
+        'show' => true
+      },
+      'api/v1/shopping_lists' => {
+        'update' => true,
+        'destroy' => true,
+        'create' => true,
+        'show' => true
       }
     }
   end

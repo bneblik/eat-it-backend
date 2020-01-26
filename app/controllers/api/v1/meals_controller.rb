@@ -9,11 +9,16 @@ module Api
       MEAL_UPDATE_ERROR = 'Validation error'
 
       def index
-        @meals = Meal.all
+        @meals = Meal.all.page params[:page]
+        render json: Api::V1::MealSerializer.new(@meals).serialized_json
       end
 
       def show
         @meal = Meal.find(params[:id])
+        render json: Api::V1::MealSerializer.new(
+          @meal,
+          include: %i[meal_product_association]
+        ).serialized_json
       end
 
       def update
@@ -26,6 +31,8 @@ module Api
           time: params[:time],
           servings: params[:servings]
         )
+
+        ::CreateMealProductAssociations.new(params[:products], @meal.id).call
       end
 
       def create
@@ -37,6 +44,8 @@ module Api
           user_id: current_user.id
         )
         @meal.save!
+
+        ::CreateMealProductAssociations.new(params[:products], @meal.id).call
       end
 
       def destroy

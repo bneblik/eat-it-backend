@@ -18,6 +18,8 @@ gem 'activeadmin'
 gem 'active_skin'
 gem 'activeadmin-dry-validation'
 gem 'turbolinks'
+gem 'fast_jsonapi'
+gem 'kaminari'
 
 # Application
 gem 'dry-validation', '~> 0.13.1'
