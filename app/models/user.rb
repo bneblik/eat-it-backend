@@ -8,6 +8,7 @@ class User < ApplicationRecord
          :jwt_authenticatable, jwt_revocation_strategy: JwtBlacklist
 
   has_one :fridge
+  has_one :shopping_list
 
   has_many :meals
   has_many :comments

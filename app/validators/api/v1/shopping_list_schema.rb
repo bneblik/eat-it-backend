@@ -8,6 +8,10 @@ module Api
       end
 
       define! do
+        required(:products).schema do
+          required(:id, :bigint).filled
+          required(:amount, :integer).filled
+        end
       end
     end
   end

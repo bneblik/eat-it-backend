@@ -6,7 +6,7 @@ module Api
       include FastJsonapi::ObjectSerializer
       set_type :shopping_list
       set_id :id
-      attributes :quantity
+      attributes :amount
       attribute :product_id do |object|
         object.product.id
       end

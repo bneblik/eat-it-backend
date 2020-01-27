@@ -10,13 +10,14 @@ module Api
 
       def index
         @meals = Meal.all.page params[:page]
-        render json: Api::V1::MealSerializer.new(@meals).serialized_json
+        render json: Api::V1::MealSerializer.new(@meals, params: { user_id: current_user&.id || -1 }).serialized_json
       end
 
       def show
         @meal = Meal.find(params[:id])
         render json: Api::V1::MealSerializer.new(
           @meal,
+          params: { user_id: current_user&.id || -1 },
           include: %i[meal_product_association]
         ).serialized_json
       end

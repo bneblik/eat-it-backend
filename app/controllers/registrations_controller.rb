@@ -12,6 +12,8 @@ class RegistrationsController < Devise::RegistrationsController
     resource.save
 
     if resource.errors.empty?
+      ShoppingList.create(user_id: resource.id)
+      Fridge.create(user_id: resource.id)
       render_success(description: 'User created successfully', content: { user: resource })
     else
       render_unprocessable_entity(content: resource.errors.messages)

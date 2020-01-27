@@ -24,7 +24,7 @@ class AddProductsToFridge
       FridgeProductAssociation.create!(
         fridge_id: fridge_id,
         product_id: product[:id],
-        quantity: product[:quantity]
+        amount: product[:amount]
       )
     end
   end

@@ -24,7 +24,7 @@ class CreateMealProductAssociations
       MealProductAssociation.create!(
         meal_id: meal_id,
         product_id: product[:id].to_i,
-        quantity: product[:quantity].to_i
+        amount: product[:amount].to_i
       )
     end
   end

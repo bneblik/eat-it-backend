@@ -12,6 +12,10 @@ module Api
         required(:recipe, :string).filled
         required(:time, :integer).filled
         required(:servings, :integer).filled
+        required(:products).schema do
+          required(:id, :bigint).filled
+          required(:amount, :integer).filled
+        end
       end
     end
   end

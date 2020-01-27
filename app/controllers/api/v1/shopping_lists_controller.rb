@@ -5,30 +5,27 @@ module Api
     class ShoppingListsController < ::Api::BaseController
       # before_action :validate_meal_params, only: %i[create update]
 
-      def show
-        @shopping_list = ShoppingList.find(params[:id])
+      def index
+        @shopping_list = current_user.shopping_list
         render json: Api::V1::ShoppingListSerializer.new(@shopping_list.shopping_list_products).serialized_json
       end
 
       def update
-        @shopping_list = ShoppingList.find(params[:id])
+        @shopping_list = current_user.shopping_list
 
         ::AddProductsToShoppingList.new(params[:products], @shopping_list.id).call
         render json: Api::V1::ShoppingListSerializer.new(@shopping_list.shopping_list_products).serialized_json
       end
 
       def create
-        @shopping_list = ShoppingList.create(
-          user_id: current_user.id
-        )
-        @shopping_list.save!
+        @shopping_list = current_user.shopping_list
 
         ::AddProductsToShoppingList.new(params[:products], @shopping_list.id).call
         render json: Api::V1::ShoppingListSerializer.new(@shopping_list.shopping_list_products).serialized_json
       end
 
       def destroy
-        @shopping_list = ShoppingList.find(params[:id])
+        @shopping_list = current_user.shopping_list
         @meal.destroy!
       end
 

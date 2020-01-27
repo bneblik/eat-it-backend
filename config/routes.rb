@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       resources :fridges
       resources :comments
       resources :shopping_lists
+      resources :meal_categories
     end
   end
 end

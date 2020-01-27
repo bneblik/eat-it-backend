@@ -19,13 +19,13 @@ class UserAccessPolicy < PolicyFinder
         'update' => true,
         'destroy' => true,
         'create' => true,
-        'show' => true
+        'index' => true
       },
       'api/v1/shopping_lists' => {
         'update' => true,
         'destroy' => true,
         'create' => true,
-        'show' => true
+        'index' => true
       }
     }
   end

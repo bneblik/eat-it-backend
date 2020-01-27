@@ -24,7 +24,7 @@ class AddProductsToShoppingList
       ShoppingListProductAssociation.create!(
         shopping_list_id: shopping_list_id,
         product_id: product[:id],
-        quantity: product[:quantity]
+        amount: product[:amount]
       )
     end
   end

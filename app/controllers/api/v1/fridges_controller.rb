@@ -5,30 +5,27 @@ module Api
     class FridgesController < ::Api::BaseController
       # before_action :validate_meal_params, only: %i[create update]
 
-      def show
-        @fridge = Fridge.find(params[:id])
+      def index
+        @fridge = current_user.fridge
         render json: Api::V1::FridgeSerializer.new(@fridge.fridge_products).serialized_json
       end
 
       def update
-        @fridge = Fridge.find(params[:id])
+        @fridge = current_user.fridge
 
         ::AddProductsToFridge.new(params[:products], @fridge.id).call
         render json: Api::V1::FridgeSerializer.new(@fridge.fridge_products).serialized_json
       end
 
       def create
-        @fridge = Fridge.create(
-          user_id: current_user.id
-        )
-        @fridge.save!
+        @fridge = current_user.fridge
 
         ::AddProductsToFridge.new(params[:products], @fridge.id).call
         render json: Api::V1::FridgeSerializer.new(@fridge.fridge_products).serialized_json
       end
 
       def destroy
-        @fridge = Fridge.find(params[:id])
+        @fridge = current_user.fridge
         @meal.destroy!
       end
 
