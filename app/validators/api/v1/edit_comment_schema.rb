@@ -8,8 +8,8 @@ module Api
       end
 
       define! do
-        required(:title, :string).filled
-        required(:text, :text).filled
+        required(:rate, :integer).filled
+        required(:text, :string).filled
       end
     end
   end

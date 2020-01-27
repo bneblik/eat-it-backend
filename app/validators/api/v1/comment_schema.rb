@@ -8,9 +8,9 @@ module Api
       end
 
       define! do
-        required(:title, :string).filled
-        required(:text, :text).filled
-        required(:meal_id, :bigint).filled
+        required(:rate, :integer).filled
+        required(:text, :string).filled
+        required(:meal_id, :integer).filled
       end
     end
   end

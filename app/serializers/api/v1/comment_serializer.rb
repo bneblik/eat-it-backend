@@ -6,7 +6,7 @@ module Api
       include FastJsonapi::ObjectSerializer
       set_type :comment
       set_id :id
-      attributes :title, :text
+      attributes :rate, :text
     end
   end
 end

@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :comment do
     association :user
     association :meal
-    title { Faker::Lorem.sentences }
+    rate { 5 }
     text { Faker::Lorem.paragraph }
   end
 end

@@ -13,14 +13,14 @@ module Api
         validate_user_permission
 
         @comment.update!(
-          title: params[:title],
+          rate: params[:rate],
           text: params[:text]
         )
       end
 
       def create
         @comment = Comment.create(
-          title: params[:title],
+          rate: params[:rate],
           text: params[:text],
           meal_id: params[:meal_id],
           user_id: current_user.id
