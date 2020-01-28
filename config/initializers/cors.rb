@@ -18,7 +18,7 @@
 # end
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'http://app-eat-it.herokuapp.com'
+    origins 'https://app-eat-it.herokuapp.com'
 
     resource '/api/*',
       headers: %w(Authorization),
