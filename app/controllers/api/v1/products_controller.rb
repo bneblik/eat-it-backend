@@ -5,6 +5,8 @@ module Api
     class ProductsController < ::Api::BaseController
       def index
         @products = Product.all.page params[:page]
+        @products = @products.where('name like ?', "%#{params[:check]}%") unless params[:check].nil?
+        @products = @products.page params[:page]
         render json: Api::V1::ProductSerializer.new(@products).serialized_json
       end
 
