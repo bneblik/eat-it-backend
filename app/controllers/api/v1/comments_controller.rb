@@ -8,6 +8,12 @@ module Api
       COMMENT_UPDATED = 'Comment was successfully updated'
       COMMENT_UPDATE_ERROR = 'Validation error'
 
+      def index
+        @comments = Comment.where(meal_id: params[:meal_id]).page params[:page]
+
+        render json: Api::V1::CommentSerializer.new(@comments).serialized_json
+      end
+
       def update
         @comment = Comment.find(params[:id])
         validate_user_permission

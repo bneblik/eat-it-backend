@@ -10,7 +10,12 @@ module Api
 
       def index
         @meals = Meal.all.page params[:page]
-        render json: Api::V1::MealSerializer.new(@meals, params: { user_id: current_user&.id || -1 }).serialized_json
+        render json: Api::V1::MealShortSerializer.new(@meals, params: { user_id: current_user&.id || -1 }).serialized_json
+      end
+
+      def find
+        @meals = Meal.where('name like ?', "%#{params[:check]}%").page params[:page]
+        render json: Api::V1::MealShortSerializer.new(@meals, params: { user_id: current_user&.id || -1 }).serialized_json
       end
 
       def show
@@ -19,7 +24,7 @@ module Api
           @meal,
           params: { user_id: current_user&.id || -1 },
           include: %i[meal_product_association]
-        ).serialized_json
+        )
       end
 
       def update
@@ -36,9 +41,9 @@ module Api
 
         ::CreateMealProductAssociations.new(params[:products], params[:recipes], @meal.id).call
         render json: Api::V1::MealSerializer.new(
-            @meal,
-            params: { user_id: current_user&.id || -1 },
-            include: %i[meal_product_association]
+          @meal,
+          params: { user_id: current_user&.id || -1 },
+          include: %i[meal_product_association]
         ).serialized_json
       end
 
@@ -55,9 +60,9 @@ module Api
 
         ::CreateMealProductAssociations.new(params[:products], params[:recipes], @meal.id).call
         render json: Api::V1::MealSerializer.new(
-            @meal,
-            params: { user_id: current_user&.id || -1 },
-            include: %i[meal_product_association]
+          @meal,
+          params: { user_id: current_user&.id || -1 },
+          include: %i[meal_product_association]
         ).serialized_json
       end
 

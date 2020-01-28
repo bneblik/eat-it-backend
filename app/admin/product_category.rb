@@ -20,4 +20,3 @@ ActiveAdmin.register ProductCategory do
     f.actions
   end
 end
-

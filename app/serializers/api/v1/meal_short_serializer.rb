@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    class MealSerializer
+    class MealShortSerializer
       include FastJsonapi::ObjectSerializer
       set_type :meal
       set_id :id
@@ -17,12 +17,6 @@ module Api
       attribute :your_meal do |object, params|
         object.user.id == params[:user_id]
       end
-      attribute :recipes, &:recipes
-
-      has_many :comments, record_type: :comments
-      has_many :recipes, record_type: :recipes
-      has_many :products
-      has_many :meal_product_association, record_type: :products
     end
   end
 end

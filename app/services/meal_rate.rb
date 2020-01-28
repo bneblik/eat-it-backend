@@ -16,7 +16,7 @@ class MealRate
 
   def calculate_rate
     meal = Meal.find(meal_id)
-    (meal.rate * (meal.comments.count - 1) + rate)/(meal.comments.count)
+    (meal.rate * (meal.comments.count - 1) + rate) / meal.comments.count
   end
 
   def update_meal(rate)

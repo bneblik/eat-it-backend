@@ -20,5 +20,3 @@ ActiveAdmin.register MealCategory do
     f.actions
   end
 end
-
-
