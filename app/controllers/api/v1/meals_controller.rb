@@ -12,7 +12,7 @@ module Api
         @meals = Meal.all
         @meals = @meals.where('name like ?', "%#{params[:check]}%") unless params[:check].nil?
         @meals = @meals.where(meal_category_id: params[:meal_category_id].to_i) unless params[:meal_category_id].nil?
-        @meals = @meals.where(user_id: params[:user_id]) unless params[:user_id].nil?
+        @meals = @meals.where(user_id: params[:user_id]) unless params[:my_meal].nil?
         @meals = @meals.page params[:page]
 
         render json: Api::V1::MealShortSerializer.new(@meals, params: { user_id: params[:user_id] || -1 }).serialized_json
