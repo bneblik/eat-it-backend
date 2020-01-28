@@ -28,25 +28,27 @@ module Api
 
         @meal.update!(
           name: params[:name],
-          recipe: params[:recipe],
           time: params[:time],
-          servings: params[:servings]
+          servings: params[:servings],
+          video: params[:video],
+          meal_category_id: params[:meal_category_id]
         )
 
-        ::CreateMealProductAssociations.new(params[:products], @meal.id).call
+        ::CreateMealProductAssociations.new(params[:products], params[:recipes], @meal.id).call
       end
 
       def create
         @meal = Meal.create(
           name: params[:name],
-          recipe: params[:recipe],
           time: params[:time],
           servings: params[:servings],
+          meal_category_id: params[:meal_category_id],
+          video: params[:video],
           user_id: current_user.id
         )
         @meal.save!
 
-        ::CreateMealProductAssociations.new(params[:products], @meal.id).call
+        ::CreateMealProductAssociations.new(params[:products], params[:recipes], @meal.id).call
       end
 
       def destroy
