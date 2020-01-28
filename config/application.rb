@@ -18,10 +18,13 @@ module EatIt
     config.api_only = true
 
     config.eager_load_paths += %W[#{config.root}/lib]
-
+    
     config.middleware.use Rack::MethodOverride
     config.middleware.use AdminCookies
     config.middleware.use AdminDispatchFlash
     config.middleware.use AdminSessionCookieStore
+    config.action_dispatch.default_headers = {
+      'Access-Control-Allow-Origin' => 'https://app-eat-it.herokuapp.com'
+    }
   end
 end
