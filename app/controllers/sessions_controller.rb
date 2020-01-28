@@ -13,5 +13,9 @@ class SessionsController < Devise::SessionsController
     @current_user = @user
 
     render 'api/v1/users/current_users/show.json'
+  rescue StandardError => e
+    e.backtrace.each do |l|
+      Rails.logger.error(l)
+    end
   end
 end
