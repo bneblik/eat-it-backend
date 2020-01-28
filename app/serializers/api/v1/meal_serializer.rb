@@ -6,9 +6,10 @@ module Api
       include FastJsonapi::ObjectSerializer
       set_type :meal
       set_id :id
-      attributes :name, :recipe, :time, :video, :calories,
-                 :fats, :proteins, :carbs, :description
+      attributes :name, :time, :video, :calories,
+                 :fats, :proteins, :carbs, :description, :video
       attribute :comments, &:comments
+      attribute :recipes, &:recipes
       attribute :category do |object|
         object.meal_category&.name
       end
@@ -16,6 +17,7 @@ module Api
         object.user.id == params[:user_id]
       end
       has_many :comments
+      has_many :recipes
       has_many :products
       has_many :meal_product_association
     end
