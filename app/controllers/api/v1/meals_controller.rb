@@ -3,7 +3,7 @@
 module Api
   module V1
     class MealsController < ::Api::BaseController
-      before_action :validate_meal_params, only: %i[create update]
+      # before_action :validate_meal_params, only: %i[create update]
 
       MEAL_UPDATED = 'Meal was successfully updated'
       MEAL_UPDATE_ERROR = 'Validation error'
