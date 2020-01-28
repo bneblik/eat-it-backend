@@ -11,7 +11,7 @@ module Api
       def index
         @comments = Comment.where(meal_id: params[:meal_id]).page params[:page]
 
-        render json: Api::V1::CommentSerializer.new(@comments).serialized_json
+        render json: Api::V1::CommentSerializer.new(@comments, params: { user_id: params[:user_id] || -1 }).serialized_json
       end
 
       def update

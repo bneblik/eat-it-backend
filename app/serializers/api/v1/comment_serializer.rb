@@ -10,6 +10,12 @@ module Api
       attribute :author do |object|
         object.user&.name || object.user&.email
       end
+      attribute :author_id do |object|
+        object.user&.id
+      end
+      attribute :your_product do |object, params|
+        object.user.id == params[:user_id].to_i
+      end
     end
   end
 end

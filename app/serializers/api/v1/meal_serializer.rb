@@ -18,7 +18,7 @@ module Api
         object.rate / 1000.0
       end
       attribute :your_meal do |object, params|
-        object.user.id == params[:user_id]
+        object.user.id == params[:user_id].to_i
       end
       attribute :recipes, &:recipes
 
