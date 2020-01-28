@@ -18,6 +18,7 @@ module Api
         )
 
         ::MealRate.new(params[:rate].to_i * 1000, @comment.meal_id).call
+        render json: Api::V1::CommentSerializer.new(@comment).serialized_json
       end
 
       def create
@@ -30,6 +31,7 @@ module Api
         @comment.save!
 
         ::MealRate.new(params[:rate].to_i * 1000, @comment.meal_id).call
+        render json: Api::V1::CommentSerializer.new(@comment).serialized_json
       end
 
       def destroy

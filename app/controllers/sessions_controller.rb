@@ -12,7 +12,7 @@ class SessionsController < Devise::SessionsController
     sign_in(resource_name, resource)
     @current_user = @user
 
-    render 'api/v1/users/current_users/show.json'
+    render json: Api::V1::UserSerializer.new(@current_user).serialized_json
   rescue StandardError => e
     e.backtrace.each do |l|
       Rails.logger.error(l)

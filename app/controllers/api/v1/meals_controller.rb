@@ -35,6 +35,11 @@ module Api
         )
 
         ::CreateMealProductAssociations.new(params[:products], params[:recipes], @meal.id).call
+        render json: Api::V1::MealSerializer.new(
+            @meal,
+            params: { user_id: current_user&.id || -1 },
+            include: %i[meal_product_association]
+        ).serialized_json
       end
 
       def create
@@ -49,6 +54,11 @@ module Api
         @meal.save!
 
         ::CreateMealProductAssociations.new(params[:products], params[:recipes], @meal.id).call
+        render json: Api::V1::MealSerializer.new(
+            @meal,
+            params: { user_id: current_user&.id || -1 },
+            include: %i[meal_product_association]
+        ).serialized_json
       end
 
       def destroy
