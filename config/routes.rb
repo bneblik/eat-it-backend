@@ -29,7 +29,6 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      get '/meals/find', to: 'meals#find'
       resources :meals, only: [:create, :destroy, :update, :index, :show]
       resources :products
       resources :fridges

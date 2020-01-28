@@ -9,13 +9,13 @@ module Api
       MEAL_UPDATE_ERROR = 'Validation error'
 
       def index
-        @meals = Meal.all.page params[:page]
-        render json: Api::V1::MealShortSerializer.new(@meals, params: { user_id: current_user&.id || -1 }).serialized_json
-      end
+        @meals = Meal.all
+        @meals = @meals.where('name like ?', "%#{params[:check]}%") unless params[:check].nil?
+        @meals = @meals.where(meal_category_id: params[:meal_category_id].to_i) unless params[:meal_category_id].nil?
+        @meals = @meals.where(user_id: params[:user_id]) unless params[:user_id].nil?
+        @meals = @meals.page params[:page]
 
-      def find
-        @meals = Meal.where('name like ?', "%#{params[:check]}%").page params[:page]
-        render json: Api::V1::MealShortSerializer.new(@meals, params: { user_id: current_user&.id || -1 }).serialized_json
+        render json: Api::V1::MealShortSerializer.new(@meals, params: { user_id: params[:user_id] || -1 }).serialized_json
       end
 
       def show
@@ -74,6 +74,24 @@ module Api
       end
 
       private
+
+      def find_name(name)
+        return @meals if name.nil?
+
+        @meals = @meals.where.where('name like ?', "%#{name}%")
+      end
+
+      def find_category(meal_category_id)
+        return @meals if meal_category_id.nil?
+
+        @meals = @meals.where(meal_category_id: meal_category_id.to_i)
+      end
+
+      def user_meals(user_id)
+        return @meals if user_id.nil?
+
+        @meals = @meals.where(user_id: user_id.to_i)
+      end
 
       def validate_meal_params
         validation = Api::V1::MealSchema.new.call(params)
