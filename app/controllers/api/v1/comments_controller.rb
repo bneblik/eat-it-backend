@@ -13,19 +13,23 @@ module Api
         validate_user_permission
 
         @comment.update!(
-          rate: params[:rate],
+          rate: params[:rate].to_i,
           text: params[:text]
         )
+
+        ::MealRate.new(params[:rate].to_i * 1000, @comment.meal_id).call
       end
 
       def create
         @comment = Comment.create(
-          rate: params[:rate],
+          rate: params[:rate].to_i,
           text: params[:text],
           meal_id: params[:meal_id],
           user_id: current_user.id
         )
         @comment.save!
+
+        ::MealRate.new(params[:rate].to_i * 1000, @comment.meal_id).call
       end
 
       def destroy
