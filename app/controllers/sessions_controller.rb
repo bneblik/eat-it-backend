@@ -8,7 +8,7 @@ class SessionsController < Devise::SessionsController
   skip_before_action :verify_signed_out_user, only: :destroy
 
   def create
-    self.resource = warden.authenticate!(auth_options)
+    self.resource = warden.authenticate!(scope: :user, recall: "#{controller_path}#new")
     sign_in(resource_name, resource)
     @current_user = @user
 
