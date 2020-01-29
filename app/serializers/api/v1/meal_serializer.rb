@@ -20,6 +20,9 @@ module Api
       attribute :your_meal do |object, params|
         object.user.id == params[:user_id].to_i
       end
+      attribute :image do |object|
+        Rails.application.routes.url_helpers.rails_blob_path(object.image, only_path: true) if object.image.attached?
+      end
       attribute :recipes, &:recipes
 
       belongs_to :meal_category

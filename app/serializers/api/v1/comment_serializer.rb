@@ -13,7 +13,7 @@ module Api
       attribute :author_id do |object|
         object.user&.id
       end
-      attribute :your_product do |object, params|
+      attribute :your_comment do |object, params|
         object.user.id == params[:user_id].to_i
       end
     end

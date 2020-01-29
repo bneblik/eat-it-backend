@@ -15,7 +15,10 @@ module Api
         @meals = @meals.where(user_id: params[:user_id]) unless params[:my_meal].nil?
         @meals = @meals.page params[:page]
 
-        render json: Api::V1::MealShortSerializer.new(@meals, params: { user_id: params[:user_id] || -1 }).serialized_json
+        render json: Api::V1::MealShortSerializer.new(
+          @meals,
+          params: { user_id: params[:user_id] || -1 }
+        ).serialized_json
       end
 
       def show
@@ -38,6 +41,7 @@ module Api
           video: params[:video],
           meal_category_id: params[:meal_category_id]
         )
+        @meal.image.attach(params[:image]) if params[:image].present?
 
         ::CreateMealProductAssociations.new(params[:products], params[:recipes], @meal.id).call
         render json: Api::V1::MealSerializer.new(
@@ -57,6 +61,7 @@ module Api
           user_id: current_user.id
         )
         @meal.save!
+        @meal.image.attach(params[:image]) if params[:image].present?
 
         ::CreateMealProductAssociations.new(params[:products], params[:recipes], @meal.id).call
         render json: Api::V1::MealSerializer.new(

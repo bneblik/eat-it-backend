@@ -11,8 +11,19 @@ module Api
       end
 
       def show
-        @product = Meal.find(params[:id])
-        render json: Api::V1::MealSerializer.new(@product).serialized_json
+        @product = Product.find(params[:id])
+        render json: Api::V1::ProductSerializer.new(@product).serialized_json
+      end
+
+      def create
+        @product = Product.new(product_params)
+        render json: Api::V1::ProductSerializer.new(@product).serialized_json
+      end
+
+      private
+
+      def product_params
+        params.require(:product).permit(:product_id, :products, :image, uploads: [])
       end
     end
   end

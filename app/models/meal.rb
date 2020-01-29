@@ -11,5 +11,5 @@ class Meal < ApplicationRecord
   has_many :recipes
   has_many :products, through: :meal_product_association, dependent: :destroy
 
-  # has_many_attached :images
+  has_one_attached :image
 end

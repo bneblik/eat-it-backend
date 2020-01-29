@@ -10,6 +10,6 @@ class Product < ApplicationRecord
   has_many :shopping_list_product_associations
   has_many :shopping_lists, through: :shopping_list_product_associations
 
-  has_many_attached :images
+  has_one_attached :image
   belongs_to :product_category
 end

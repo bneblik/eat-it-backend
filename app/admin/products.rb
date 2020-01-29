@@ -2,7 +2,7 @@
 
 ActiveAdmin.register Product do
   menu parent: 'Food'
-  permit_params :name, :calories, :fats, :carbs, :proteins, :unit, :product_category_id
+  permit_params :name, :calories, :fats, :carbs, :proteins, :unit, :product_category_id, :image
 
   index do
     selectable_column
@@ -13,7 +13,8 @@ ActiveAdmin.register Product do
     column :carbs
     column :proteins
     column :unit
-    column :product_category_id, as: :select, collection: ProductCategory.all.order(:name).pluck(:name, :id)
+    column :product_category_id
+    column :image, as: :file
     actions
   end
 
@@ -29,6 +30,7 @@ ActiveAdmin.register Product do
       f.input :proteins
       f.input :unit
       f.input :product_category_id, as: :select, collection: ProductCategory.all.order(:name).pluck(:name, :id)
+      f.input :image, as: :file
     end
     f.actions
   end
