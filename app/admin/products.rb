@@ -14,7 +14,6 @@ ActiveAdmin.register Product do
     column :proteins
     column :unit
     column :product_category_id
-    column :image, as: :file
     actions
   end
 
