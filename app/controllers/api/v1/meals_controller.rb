@@ -12,12 +12,12 @@ module Api
         @meals = Meal.all
         @meals = @meals.where('name like ?', "%#{params[:check]}%") unless params[:check].nil?
         @meals = @meals.where(meal_category_id: params[:meal_category_id].to_i) unless params[:meal_category_id].nil?
-        @meals = @meals.where(user_id: params[:user_id]) unless params[:my_meal].nil?
+        @meals = @meals.where(user_id: params[:user_id].to_i) unless params[:my_meal].nil?
         @meals = @meals.page params[:page]
 
         render json: Api::V1::MealShortSerializer.new(
           @meals,
-          params: { user_id: params[:user_id] || -1 }
+          params: { user_id: params[:user_id].to_i || -1 }
         ).serialized_json
       end
 
@@ -36,10 +36,10 @@ module Api
 
         @meal.update!(
           name: params[:name],
-          time: params[:time],
-          servings: params[:servings],
+          time: params[:time].to_i,
+          servings: params[:servings].to_i,
           video: params[:video],
-          meal_category_id: params[:meal_category_id]
+          meal_category_id: params[:meal_category_id].to_i
         )
         @meal.image.attach(params[:image]) if params[:image].present?
 
@@ -56,7 +56,7 @@ module Api
           name: params[:name],
           time: params[:time],
           servings: params[:servings],
-          meal_category_id: params[:meal_category_id],
+          meal_category_id: params[:meal_category_id].to_i,
           video: params[:video],
           user_id: current_user.id
         )
@@ -79,24 +79,6 @@ module Api
       end
 
       private
-
-      def find_name(name)
-        return @meals if name.nil?
-
-        @meals = @meals.where.where('name like ?', "%#{name}%")
-      end
-
-      def find_category(meal_category_id)
-        return @meals if meal_category_id.nil?
-
-        @meals = @meals.where(meal_category_id: meal_category_id.to_i)
-      end
-
-      def user_meals(user_id)
-        return @meals if user_id.nil?
-
-        @meals = @meals.where(user_id: user_id.to_i)
-      end
 
       def validate_meal_params
         validation = Api::V1::MealSchema.new.call(params)

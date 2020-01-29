@@ -28,6 +28,9 @@ module Api
       attribute :unit do |object|
         object.product.unit
       end
+      attribute :image do |object|
+        Rails.application.routes.url_helpers.rails_blob_path(object.product.image, only_path: true) if object.product.image.attached?
+      end
     end
   end
 end

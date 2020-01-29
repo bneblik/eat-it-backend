@@ -27,7 +27,7 @@ gem 'dry-types'
 gem 'dry-transaction'
 gem 'dry-struct'
 gem 'active_interaction', '~> 3.7'
-gem "google-cloud-storage", "~> 1.8"
+gem 'google-cloud-storage', '~> 1.8'
 
 # Authentication
 gem 'devise'
