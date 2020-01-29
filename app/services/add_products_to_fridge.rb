@@ -23,8 +23,8 @@ class AddProductsToFridge
     products.map do |product|
       FridgeProductAssociation.create!(
         fridge_id: fridge_id,
-        product_id: product[:id],
-        amount: product[:amount]
+        product_id: product[:id].to_i,
+        amount: product[:amount].to_i
       )
     end
   end

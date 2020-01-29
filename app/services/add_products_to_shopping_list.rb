@@ -23,8 +23,8 @@ class AddProductsToShoppingList
     products.map do |product|
       ShoppingListProductAssociation.create!(
         shopping_list_id: shopping_list_id,
-        product_id: product[:id],
-        amount: product[:amount]
+        product_id: product[:id].to_i,
+        amount: product[:amount].to_i
       )
     end
   end
