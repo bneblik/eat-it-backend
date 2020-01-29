@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :meals, only: [:create, :destroy, :update, :index, :show]
       resources :products
+      resources :meal_plans
       resources :fridges
       resources :comments
       resources :shopping_lists

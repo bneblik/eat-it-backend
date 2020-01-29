@@ -10,6 +10,12 @@ module Api
       attribute :product_id do |object|
         object.product.id
       end
+      attribute :category_name do |object|
+        object.product.product_category.name
+      end
+      attribute :category_id do |object|
+        object.product.product_category.id
+      end
       attribute :name do |object|
         object.product.name
       end

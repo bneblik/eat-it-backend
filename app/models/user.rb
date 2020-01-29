@@ -12,4 +12,5 @@ class User < ApplicationRecord
 
   has_many :meals
   has_many :comments
+  has_many :meal_plans
 end
