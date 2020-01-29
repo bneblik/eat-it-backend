@@ -27,6 +27,7 @@ gem 'dry-types'
 gem 'dry-transaction'
 gem 'dry-struct'
 gem 'active_interaction', '~> 3.7'
+gem "google-cloud-storage", "~> 1.8"
 
 # Authentication
 gem 'devise'
@@ -47,7 +48,6 @@ group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem "google-cloud-storage", "~> 1.8", require: false
 end
 
 group :test do
