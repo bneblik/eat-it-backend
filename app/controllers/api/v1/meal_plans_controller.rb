@@ -6,15 +6,19 @@ module Api
       # before_action :validate_meal_params, only: %i[create update]
 
       def index
-        @fridge = current_user.fridge
-        render json: Api::V1::FridgeSerializer.new(@fridge.fridge_products).serialized_json
+        @meal_plans = MealPlan.where(user_id: current_user.id)
+        render json: Api::V1::MealPlansSerializer.new(@meal_plans).serialized_json
       end
 
       def update
-        @fridge = current_user.fridge
+        @meal_plan.find(params[:id])
+        @meal_plan = MealPlan.update!(
+          meal_id: params[:meal_id].to_i,
+          portion: params[:portion],
+          date: params[:date]
+        )
 
-        ::AddProductsToFridge.new(params[:products], @fridge.id).call
-        render json: Api::V1::FridgeSerializer.new(@fridge.fridge_products).serialized_json
+        render json: Api::V1::MealPlansSerializer.new(@meal_plan).serialized_json
       end
 
       def create
@@ -25,12 +29,13 @@ module Api
           user_id: current_user.id
         )
         @meal_plan.save!
+
         render json: Api::V1::MealPlansSerializer.new(@meal_plan).serialized_json
       end
 
       def destroy
-        @fridge = current_user.fridge
-        @meal.destroy!
+        @meal_plan = MealPlan.where(meal_id: params[:meal_id].to_i, date: params[:date])
+        @meal_plan.destroy!
       end
 
       private
