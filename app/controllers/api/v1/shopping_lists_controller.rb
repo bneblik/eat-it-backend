@@ -13,14 +13,14 @@ module Api
       def update
         @shopping_list = current_user.shopping_list
 
-        ::AddProductsToShoppingList.new(params[:products], @shopping_list.id).call
+        ::AddProductsToShoppingList.new(params[:products], @shopping_list.id, current_user.id).call
         render json: Api::V1::ShoppingListSerializer.new(@shopping_list.shopping_list_products).serialized_json
       end
 
       def create
         @shopping_list = current_user.shopping_list
 
-        ::AddProductsToShoppingList.new(params[:products], @shopping_list.id).call
+        ::AddProductsToShoppingList.new(params[:products], @shopping_list.id, current_user.id).call
         render json: Api::V1::ShoppingListSerializer.new(@shopping_list.shopping_list_products).serialized_json
       end
 

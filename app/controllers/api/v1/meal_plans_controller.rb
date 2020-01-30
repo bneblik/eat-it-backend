@@ -8,7 +8,7 @@ module Api
       NOT_ENOUGH_PRODUCTS_ERROR = 'You have not enough products in fridge'
 
       def index
-        @meal_plans = MealPlan.where(date: params[:date]).first
+        @meal_plans = MealPlan.where(date: params[:date])
         render json: Api::V1::MealPlansSerializer.new(@meal_plans).serialized_json
       end
 
