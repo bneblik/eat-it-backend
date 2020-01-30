@@ -7,7 +7,8 @@ class OpenAccessPolicy < PolicyFinder
     {
       'api/v1/meals' => {
         'index' => true,
-        'show' => true
+        'show' => true,
+        'recommended_meals' => true
       },
       'api/v1/products' => {
         'index' => true,

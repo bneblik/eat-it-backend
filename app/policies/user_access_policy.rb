@@ -5,6 +5,11 @@ class UserAccessPolicy < PolicyFinder
 
   def access
     {
+      'api/v1/users' => {
+        'update' => true,
+        'show' => true,
+        'destroy' => true
+      },
       'api/v1/meals' => {
         'update' => true,
         'destroy' => true,

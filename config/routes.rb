@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :meals, only: [:create, :destroy, :update, :index, :show]
+      get '/recommended_meals', to: 'meals#recommended_meals'
       resources :products
       resources :meal_plans, only: [:create, :destroy, :update, :index]
       get '/meal_plans/meal_eaten', to: 'meal_plans#meal_eaten'

@@ -21,6 +21,14 @@ module Api
         ).serialized_json
       end
 
+      def recommended_meals
+        @meals = Meal.order('rate DESC').limit(5)
+        render json: Api::V1::MealShortSerializer.new(
+          @meals,
+          params: { user_id: params[:user_id].to_i || -1 }
+        ).serialized_json
+      end
+
       def show
         @meal = Meal.find(params[:id])
         render json: Api::V1::MealSerializer.new(

@@ -38,7 +38,7 @@ class PrepareMealFromFridge
     meal.products.each do |product|
       fridge_product = FridgeProductAssociation.where(fridge_id: fridge.id, product_id: product.id)&.first
       meal_product = MealProductAssociation.where(meal_id: meal.id, product_id: product.id).first
-      product_amount = fridge_product.amount - meal_product.amount * meal_portion
+      product_amount = fridge_product.amount - meal_product.amount * meal_portion / 2
       fridge_product.update!(amount: product_amount) if product_amount.positive?
       fridge_product.destroy if product_amount.zero?
     end
