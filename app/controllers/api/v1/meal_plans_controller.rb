@@ -37,7 +37,7 @@ module Api
       end
 
       def day_statistic
-        if current_user.height.nil? || current_user.weight.nil? || current_user.height.nil? || current_user.height.nil?
+        if current_user.height.nil? || current_user.weight.nil? || current_user.age.nil? || current_user.gender.nil?
           render_success(content: USER_PREFERENCES_WARNING)
         else
           meal_stats = calculate_meal_stats
