@@ -31,15 +31,15 @@ Rails.application.routes.draw do
     namespace :v1 do
       get '/meals/recommended_meals', to: 'meals#recommended_meals'
       resources :meals, only: [:create, :destroy, :update, :index, :show]
-      resources :products
+      resources :products, only: [:index, :show]
       resources :meal_plans, only: [:create, :destroy, :update, :index]
       get '/meal_plans/meal_eaten', to: 'meal_plans#meal_eaten'
       get '/meal_plans/day_statistic', to: 'meal_plans#day_statistic'
-      resources :fridges
+      resources :fridges, only: [:index, :create, :update]
       resources :users, only: [:update, :show, :destroy]
-      resources :comments
-      resources :shopping_lists
-      resources :meal_categories
+      resources :comments, only: [:index, :create, :update, :destroy]
+      resources :shopping_lists, only: [:index, :create, :update]
+      resources :meal_categories, only: [:index]
     end
   end
 end

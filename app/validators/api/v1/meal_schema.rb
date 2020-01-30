@@ -9,12 +9,21 @@ module Api
 
       define! do
         required(:name, :string).filled
-        required(:recipe, :string).filled
         required(:time, :integer).filled
         required(:servings, :integer).filled
-        required(:products).schema do
-          required(:id, :integer).filled
-          required(:amount, :integer).filled
+        required(:meal_category_id, :integer).filled
+        optional(:video, :string).filled
+        optional(:image, :string).filled
+        required(:products).maybe do
+          each do
+            required(:id, :integer).filled
+            required(:amount, :integer).filled
+          end
+        end
+        required(:recipes).maybe do
+          each do
+            required(:instruction, :string).filled
+          end
         end
       end
     end

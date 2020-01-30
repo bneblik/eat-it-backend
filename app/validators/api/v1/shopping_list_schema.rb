@@ -8,9 +8,12 @@ module Api
       end
 
       define! do
-        required(:products).schema do
-          required(:id, :integer).filled
-          required(:amount, :integer).filled
+        required(:products).maybe do
+          each do
+            required(:id, :integer).filled
+            required(:amount, :integer).filled
+            optional(:bought, :string).filled
+          end
         end
       end
     end

@@ -3,7 +3,7 @@
 module Api
   module V1
     class MealPlansController < ::Api::BaseController
-      # before_action :validate_meal_params, only: %i[create update]
+      before_action :validate_meal_plans_params, only: %i[create update]
 
       NOT_ENOUGH_PRODUCTS_ERROR = 'You have not enough products in fridge'
       USER_PREFERENCES_WARNING = 'You need to provide more data about yourself'
@@ -15,6 +15,7 @@ module Api
 
       def update
         @meal_plan = MealPlan.where(meal_id: params[:meal_id].to_i, date: params[:date], user_id: current_user.id).first
+        validate_user_permission
         @meal_plan = MealPlan.update!(
           meal_id: params[:meal_id].to_i,
           portion: params[:portion],
@@ -53,6 +54,7 @@ module Api
 
       def meal_eaten
         @meal_plan = MealPlan.where(meal_id: params[:meal_id].to_i, date: params[:date], user_id: current_user.id).first
+        validate_user_permission
         response = PrepareMealFromFridge.new(@meal_plan, current_user.id).call
         if response.nil?
           render_unprocessable_entity(content: NOT_ENOUGH_PRODUCTS_ERROR)
@@ -64,6 +66,7 @@ module Api
 
       def destroy
         @meal_plan = MealPlan.where(meal_id: params[:meal_id].to_i, date: params[:date], user_id: current_user.id).first
+        validate_user_permission
         @meal_plan.destroy!
       end
 
@@ -86,11 +89,17 @@ module Api
         end
       end
 
-      def validate_meal_params
-        validation = Api::V1::FridgeSchema.new.call(params)
+      def validate_meal_plans_params
+        validation = Api::V1::MealPlansSchema.new.call(params)
         return if validation.success?
 
         render_unprocessable_entity(content: validation.messages(full: true))
+      end
+
+      def validate_user_permission
+        return if @meal_plan.user.id == current_user.id
+
+        render_unprocessable_entity(content: 'You have no permission to this comment.')
       end
     end
   end

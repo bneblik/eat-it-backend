@@ -3,10 +3,8 @@
 module Api
   module V1
     class CommentsController < ::Api::BaseController
-      before_action :validate_comment_params, only: %i[create update]
-
-      COMMENT_UPDATED = 'Comment was successfully updated'
-      COMMENT_UPDATE_ERROR = 'Validation error'
+      before_action :validate_comment_params, only: %i[create]
+      before_action :validate_edit_comment_params, only: %i[update]
 
       def index
         @comments = Comment.where(meal_id: params[:meal_id]).page params[:page]
@@ -57,7 +55,7 @@ module Api
       end
 
       def validate_edit_comment_params
-        validation = Api::V1::CommentSchema.new.call(params)
+        validation = Api::V1::EditCommentSchema.new.call(params)
         return if validation.success?
 
         render_unprocessable_entity(content: validation.messages(full: true))
