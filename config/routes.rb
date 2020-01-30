@@ -31,7 +31,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :meals, only: [:create, :destroy, :update, :index, :show]
       resources :products
-      resources :meal_plans
+      resources :meal_plans, only: [:create, :destroy, :update, :index]
+      get '/meal_plans/meal_eaten', to: 'meal_plans#meal_eaten'
       resources :fridges
       resources :comments
       resources :shopping_lists

@@ -31,7 +31,8 @@ class UserAccessPolicy < PolicyFinder
         'update' => true,
         'destroy' => true,
         'create' => true,
-        'index' => true
+        'index' => true,
+        'meal_eaten' => true
       }
     }
   end

@@ -5,8 +5,10 @@ module Api
     class MealPlansController < ::Api::BaseController
       # before_action :validate_meal_params, only: %i[create update]
 
+      NOT_ENOUGH_PRODUCTS_ERROR = 'You have not enough products in fridge'
+
       def index
-        @meal_plans = MealPlan.where(user_id: current_user.id)
+        @meal_plans = MealPlan.where(date: params[:date]).first
         render json: Api::V1::MealPlansSerializer.new(@meal_plans).serialized_json
       end
 
@@ -33,8 +35,18 @@ module Api
         render json: Api::V1::MealPlansSerializer.new(@meal_plan).serialized_json
       end
 
+      def meal_eaten
+        @meal_plan = MealPlan.where(meal_id: params[:meal_id].to_i, date: params[:date]).first
+        response = PrepareMealFromFridge.new(@meal_plan, current_user.id).call
+        if response.nil?
+          render_unprocessable_entity(content: NOT_ENOUGH_PRODUCTS_ERROR)
+        else
+          render json: Api::V1::MealPlansSerializer.new(@meal_plan).serialized_json
+        end
+      end
+
       def destroy
-        @meal_plan = MealPlan.where(meal_id: params[:meal_id].to_i, date: params[:date])
+        @meal_plan = MealPlan.where(meal_id: params[:meal_id].to_i, date: params[:date]).first
         @meal_plan.destroy!
       end
 
