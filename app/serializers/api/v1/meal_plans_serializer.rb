@@ -6,7 +6,7 @@ module Api
       include FastJsonapi::ObjectSerializer
       set_type :meal_plan
       set_id :id
-      attributes :date, :portion, :meal_id, :user_id
+      attributes :date, :portion, :meal_id, :user_id, :eaten
       attribute :name do |object|
         object.meal.name
       end

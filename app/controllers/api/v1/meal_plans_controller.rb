@@ -41,6 +41,7 @@ module Api
         if response.nil?
           render_unprocessable_entity(content: NOT_ENOUGH_PRODUCTS_ERROR)
         else
+          @meal_plan.update!(eaten: true)
           render json: Api::V1::MealPlansSerializer.new(@meal_plan).serialized_json
         end
       end
