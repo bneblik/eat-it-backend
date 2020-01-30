@@ -49,8 +49,10 @@ module Api
           video: params[:video],
           meal_category_id: params[:meal_category_id].to_i
         )
+        products = JSON.parse(params[:products])
+        recipes = JSON.parse(params[:recipes])
 
-        ::CreateMealProductAssociations.new(params[:products], params[:recipes], @meal.id).call
+        ::CreateMealProductAssociations.new(products, recipes, @meal.id).call
         render json: Api::V1::MealSerializer.new(
           @meal,
           params: { user_id: current_user&.id || -1 },
@@ -68,8 +70,10 @@ module Api
           user_id: current_user.id
         )
         @meal.save!
+        products = JSON.parse(params[:products])
+        recipes = JSON.parse(params[:recipes])
 
-        ::CreateMealProductAssociations.new(params[:products], params[:recipes], @meal.id).call
+        ::CreateMealProductAssociations.new(products, recipes, @meal.id).call
         render json: Api::V1::MealSerializer.new(
           @meal,
           params: { user_id: current_user&.id || -1 },

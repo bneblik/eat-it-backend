@@ -1,0 +1,71 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/products":
+    get:
+      summary: List of products
+      tags:
+      - Products
+      consumes:
+      - application/json
+      parameters:
+      - name: product
+        in: body
+        schema:
+          type: object
+          properties:
+            page:
+              type: integer
+          required: []
+      responses:
+        '200':
+          description: list of products
+  "/api/v1/products/{id}":
+    get:
+      summary: Show a products
+      tags:
+      - Products
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        type: string
+        required: true
+      responses:
+        '200':
+          description: product found
+          schema:
+            type: object
+            properties:
+              data:
+                id:
+                  type: integer
+                type:
+                  type: string
+                attributes:
+                  name:
+                    type: string
+                  calories:
+                    type: integer
+                  fats:
+                    type: integer
+                  carbs:
+                    type: integer
+                  proteins:
+                    type: integer
+                  unit:
+                    type: string
+                  category:
+                    type: string
+                  category_id:
+                    type: integer
+                  image:
+                    type: string
+            required:
+            - id
+            - type
+            - attributes
