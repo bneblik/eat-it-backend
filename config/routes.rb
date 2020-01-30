@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       resources :products
       resources :meal_plans, only: [:create, :destroy, :update, :index]
       get '/meal_plans/meal_eaten', to: 'meal_plans#meal_eaten'
+      get '/meal_plans/day_statistic', to: 'meal_plans#day_statistic'
       resources :fridges
       resources :users, only: [:update, :show, :destroy]
       resources :comments

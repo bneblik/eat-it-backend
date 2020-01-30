@@ -7,6 +7,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: JwtBlacklist
 
+  enum gender: { man: 0, woman: 1 }
+
   has_one :fridge
   has_one :shopping_list
 
