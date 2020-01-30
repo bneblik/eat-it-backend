@@ -8,12 +8,12 @@ module Api
       NOT_ENOUGH_PRODUCTS_ERROR = 'You have not enough products in fridge'
 
       def index
-        @meal_plans = MealPlan.where(date: params[:date])
+        @meal_plans = MealPlan.where(date: params[:date], user_id: current_user.id)
         render json: Api::V1::MealPlansSerializer.new(@meal_plans).serialized_json
       end
 
       def update
-        @meal_plan.find(params[:id])
+        @meal_plan = MealPlan.where(meal_id: params[:meal_id].to_i, date: params[:date], user_id: current_user.id).first
         @meal_plan = MealPlan.update!(
           meal_id: params[:meal_id].to_i,
           portion: params[:portion],
@@ -36,7 +36,7 @@ module Api
       end
 
       def meal_eaten
-        @meal_plan = MealPlan.where(meal_id: params[:meal_id].to_i, date: params[:date]).first
+        @meal_plan = MealPlan.where(meal_id: params[:meal_id].to_i, date: params[:date], user_id: current_user.id).first
         response = PrepareMealFromFridge.new(@meal_plan, current_user.id).call
         if response.nil?
           render_unprocessable_entity(content: NOT_ENOUGH_PRODUCTS_ERROR)
@@ -47,7 +47,7 @@ module Api
       end
 
       def destroy
-        @meal_plan = MealPlan.where(meal_id: params[:meal_id].to_i, date: params[:date]).first
+        @meal_plan = MealPlan.where(meal_id: params[:meal_id].to_i, date: params[:date], user_id: current_user.id).first
         @meal_plan.destroy!
       end
 
