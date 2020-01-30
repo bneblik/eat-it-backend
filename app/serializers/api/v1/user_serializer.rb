@@ -6,7 +6,7 @@ module Api
       include FastJsonapi::ObjectSerializer
       set_type :user
       set_id :id
-      attributes :name, :email, :name, :weight, :height
+      attributes :name, :email, :name, :weight, :height, :age, :gender
     end
   end
 end

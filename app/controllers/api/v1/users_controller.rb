@@ -11,7 +11,9 @@ module Api
         current_user.update!(
           name: params[:name],
           height: params[:height].to_i,
-          weight: params[:weight].to_i
+          weight: params[:weight].to_i,
+          age: params[:age].to_i,
+          gender: params[:gender].to_i
         )
 
         render json: Api::V1::UserSerializer.new(current_user).serialized_json
