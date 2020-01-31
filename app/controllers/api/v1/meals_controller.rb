@@ -3,7 +3,7 @@
 module Api
   module V1
     class MealsController < ::Api::BaseController
-      before_action :validate_meal_params, only: %i[create update]
+      # before_action :validate_meal_params, only: %i[create update]
 
       MEAL_UPDATED = 'Meal was successfully updated'
       MEAL_UPDATE_ERROR = 'Validation error'
@@ -46,11 +46,13 @@ module Api
           name: params[:name],
           time: params[:time].to_i,
           servings: params[:servings].to_i,
+          description: params[:description],
+          image: params[:image],
           video: params[:video],
           meal_category_id: params[:meal_category_id].to_i
         )
-        products = JSON.parse(params[:products])
-        recipes = JSON.parse(params[:recipes])
+        products = JSON.parse(params[:products], {:symbolize_names => true})
+        recipes = JSON.parse(params[:recipes], {:symbolize_names => true})
 
         ::CreateMealProductAssociations.new(products, recipes, @meal.id).call
         render json: Api::V1::MealSerializer.new(
@@ -65,13 +67,16 @@ module Api
           name: params[:name],
           time: params[:time],
           servings: params[:servings],
+          description: params[:description],
+          image: params[:image],
           meal_category_id: params[:meal_category_id].to_i,
           video: params[:video],
           user_id: current_user.id
         )
         @meal.save!
-        products = JSON.parse(params[:products])
-        recipes = JSON.parse(params[:recipes])
+        products = JSON.parse(params[:products], {:symbolize_names => true})
+        recipes = JSON.parse(params[:recipes], {:symbolize_names => true})
+
 
         ::CreateMealProductAssociations.new(products, recipes, @meal.id).call
         render json: Api::V1::MealSerializer.new(
