@@ -7,7 +7,7 @@ module Api
       before_action :validate_edit_comment_params, only: %i[update]
 
       def index
-        @comments = Comment.where(meal_id: params[:meal_id]).page params[:page]
+        @comments = Comment.where(meal_id: params[:meal_id]).order('created_at DESC').page params[:page]
 
         render json: Api::V1::CommentSerializer.new(@comments, params: { user_id: params[:user_id] || -1 }).serialized_json
       end
