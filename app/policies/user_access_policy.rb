@@ -14,6 +14,7 @@ class UserAccessPolicy < PolicyFinder
         'index' => true,
         'update' => true,
         'destroy' => true,
+        'show' => true,
         'create' => true
       },
       'api/v1/comments' => {
