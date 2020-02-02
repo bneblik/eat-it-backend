@@ -10,7 +10,7 @@ module Api
 
       def index
         @meals = Meal.all
-        @meals = @meals.where('lower(name) = ?', params[:check]) unless params[:check].nil?
+        @meals = @meals.where('lower(name) like ?', "%#{params[:check].downcase}%") unless params[:check].nil?
         @meals = @meals.where(meal_category_id: params[:meal_category_id].to_i) unless params[:meal_category_id].nil?
         @meals = @meals.where(user_id: current_user&.id) unless params[:my_meal].nil?
         @meals = @meals.page params[:page]
