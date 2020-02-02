@@ -4,6 +4,73 @@ info:
   title: API V1
   version: v1
 paths:
+  "/api/v1/comments":
+    get:
+      summary: List of comments
+      tags:
+      - Comments
+      consumes:
+      - application/json
+      parameters:
+      - name: product
+        in: body
+        schema:
+          type: object
+          properties:
+            page:
+              type: integer
+          required: []
+      responses:
+        '200':
+          description: list of products
+    post:
+      summary: Creates a comment
+      tags:
+      - Comments
+      consumes:
+      - application/json
+      parameters:
+      - name: comment
+        in: body
+        schema:
+          type: object
+          properties:
+            text:
+              type: string
+            rate:
+              type: integer
+            meal_id:
+              type: integer
+          required:
+          - text
+          - rate
+          - meal_id
+      responses:
+        '201':
+          description: blog created
+        '422':
+          description: invalid request
+        '403':
+          description: Forbidden
+  "/api/v1/meal_categories":
+    get:
+      summary: List of meal categories
+      tags:
+      - Meal categories
+      consumes:
+      - application/json
+      parameters:
+      - name: product
+        in: body
+        schema:
+          type: object
+          properties:
+            page:
+              type: integer
+          required: []
+      responses:
+        '200':
+          description: list of products
   "/api/v1/products":
     get:
       summary: List of products
@@ -28,44 +95,19 @@ paths:
       summary: Show a products
       tags:
       - Products
-      produces:
+      consumes:
       - application/json
       parameters:
-      - name: id
-        in: path
-        type: string
-        required: true
+      - name: product
+        in: body
+        schema:
+          type: object
+          properties:
+            id:
+              type: integer
+          required: []
       responses:
         '200':
           description: product found
-          schema:
-            type: object
-            properties:
-              data:
-                id:
-                  type: integer
-                type:
-                  type: string
-                attributes:
-                  name:
-                    type: string
-                  calories:
-                    type: integer
-                  fats:
-                    type: integer
-                  carbs:
-                    type: integer
-                  proteins:
-                    type: integer
-                  unit:
-                    type: string
-                  category:
-                    type: string
-                  category_id:
-                    type: integer
-                  image:
-                    type: string
-            required:
-            - id
-            - type
-            - attributes
+        '404':
+          description: product not found

@@ -25,11 +25,22 @@ RSpec.describe 'api/v1/products', type: :request do
   path '/api/v1/products/{id}' do
     get 'Show a products' do
       tags 'Products'
-      produces 'application/json'
-      parameter name: :id, in: :path, type: :string
+      consumes 'application/json'
+      parameter name: :product, in: :body, schema: {
+        type: :object,
+        properties: {
+          id: { type: :integer }
+        },
+        required: []
+      }
 
       response '200', 'product found' do
         let(:product) { FactoryBot.create(:product) }
+        run_test!
+      end
+
+      response '404', 'product not found' do
+        let(:id) { 'invalid' }
         run_test!
       end
     end
