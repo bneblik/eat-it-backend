@@ -2,5 +2,7 @@
 
 FactoryBot.define do
   factory :recipe do
+    association :meal
+    instruction { Faker::Lorem.paragraph }
   end
 end

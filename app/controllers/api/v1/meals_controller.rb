@@ -51,8 +51,8 @@ module Api
           video: params[:video],
           meal_category_id: params[:meal_category_id].to_i
         )
-        products = JSON.parse(params[:products], {:symbolize_names => true})
-        recipes = JSON.parse(params[:recipes], {:symbolize_names => true})
+        products = JSON.parse(params[:products], symbolize_names: true)
+        recipes = JSON.parse(params[:recipes], symbolize_names: true)
 
         ::CreateMealProductAssociations.new(products, recipes, @meal.id).call
         render json: Api::V1::MealSerializer.new(
@@ -73,10 +73,8 @@ module Api
           video: params[:video],
           user_id: current_user.id
         )
-        @meal.save!
-        products = JSON.parse(params[:products], {:symbolize_names => true})
-        recipes = JSON.parse(params[:recipes], {:symbolize_names => true})
-
+        products = JSON.parse(params[:products], symbolize_names: true)
+        recipes = JSON.parse(params[:recipes], symbolize_names: true)
 
         ::CreateMealProductAssociations.new(products, recipes, @meal.id).call
         render json: Api::V1::MealSerializer.new(

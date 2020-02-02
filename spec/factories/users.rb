@@ -3,11 +3,11 @@
 FactoryBot.define do
   factory :user do
     name { Faker::Name.first_name }
-    surname { Faker::Name.last_name }
-    nick { Faker::Name.initials }
     password { 'password' }
     email { Faker::Internet.email }
-    age { 23 }
-    phone_number { '48543987456' }
+    age { rand(30..90) }
+    height { rand(150..210) }
+    weight { rand(30..120) }
+    gender { rand(0..1) }
   end
 end

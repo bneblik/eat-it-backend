@@ -3,5 +3,5 @@
 require 'rails_helper'
 
 RSpec.describe Fridge, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { expect { create :fridge }.not_to raise_error }
 end

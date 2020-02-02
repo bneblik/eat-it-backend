@@ -3,5 +3,5 @@
 require 'rails_helper'
 
 RSpec.describe MealCategory, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { expect { create :meal_category }.not_to raise_error }
 end

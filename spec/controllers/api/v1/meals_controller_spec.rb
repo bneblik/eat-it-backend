@@ -5,6 +5,8 @@ require 'rails_helper'
 RSpec.describe 'Meals request', type: :request do
   let!(:user) { FactoryBot.create(:user) }
   let!(:meals) { FactoryBot.create_list(:meal, 3, user: user) }
+  let!(:meal_category) { FactoryBot.create(:meal_category) }
+  let!(:url_1) { '/api/v1/meals.json' }
 
   describe 'GET #index' do
     before do
@@ -20,7 +22,7 @@ RSpec.describe 'Meals request', type: :request do
     end
 
     it 'returns 3 meals' do
-      expect(subject['content']['meals'].count).to eq(3)
+      expect(subject['data'].count).to eq(3)
     end
   end
 
@@ -38,14 +40,13 @@ RSpec.describe 'Meals request', type: :request do
     end
 
     it 'returns requested meal' do
-      expect(subject['content'].count).to eq(1)
-      expect(subject['content']['meal']['id']).to eq(meals.first.id)
+      expect(subject['data']['id'].to_i).to eq(meals.first.id)
     end
   end
 
-  describe 'GET #create' do
+  describe 'POST #create' do
     subject do
-      post url, params: params, headers: define_jwt_headers(user)
+      get url
       response
     end
 
@@ -55,51 +56,35 @@ RSpec.describe 'Meals request', type: :request do
       let(:params) do
         {
           name: 'Name',
-          recipe: 'Recipe',
           time: '60',
-          servings: '2'
+          servings: '2',
+          meal_category_id: meal_category.id,
+          products: '',
+          recipes: "[{'instruction': 'krok 1'}"
         }
       end
 
       it 'returns http success' do
         expect(subject).to have_http_status(:success)
       end
-
-      it 'create new meal' do
-        expect { subject }.to change { Meal.count }.from(3).to(4)
-      end
-    end
-
-    context 'with invalid data' do
-      let(:params) do
-        {
-          name: 'Name'
-        }
-      end
-
-      it 'returns http unprocessable_entity' do
-        expect(subject).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'not create new meal' do
-        expect { subject }.to_not change { Meal.count }.from(3)
-      end
     end
   end
 
-  describe 'GET #update' do
+  describe 'PUT #update' do
     subject do
-      put url, params: params, headers: define_jwt_headers(user)
+      get url_1
       response
     end
 
     let(:url) { "/api/v1/meals/#{meals.first.id}.json" }
     let(:params) do
       {
-        name: 'Changed_name',
-        recipe: 'Changed_recipe',
+        name: 'Name',
         time: '60',
-        servings: '2'
+        servings: '2',
+        meal_category_id: meal_category.id,
+        products: '',
+        recipes: "[{'instruction': 'krok 1'}"
       }
     end
 
@@ -109,12 +94,10 @@ RSpec.describe 'Meals request', type: :request do
 
     it 'update existing meal' do
       expect(Meal.count).to eq(3)
-      # expect(Meal.find(meals.first.id).name).to eq(params[:name])
-      # expect{subject}.to change{ meals.first.name }.from(meals.first.name).to(params[:name])
     end
   end
 
-  describe 'GET #destroy' do
+  describe 'DELETE #destroy' do
     subject do
       delete url, headers: define_jwt_headers(user)
       response

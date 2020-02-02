@@ -16,7 +16,7 @@ Metrics/ClassLength:
   Max: 200
 
 Metrics/BlockLength:
-  ExcludedMethods: ['json.data', 'register', 'schema', 'index', 'show', 'form' ,'describe', 'context', 'before', 'namespace', 'task', 'included', 'params', 'factory', 'define', 'get', 'shared_examples', 'shared_context']
+  ExcludedMethods: ['json.data', 'register', 'schema', 'index', 'show', 'form' ,'describe', 'context', 'before', 'namespace', 'task', 'included', 'params', 'factory', 'define', 'get', 'shared_examples', 'shared_context', 'spec']
 
 Metrics/PerceivedComplexity:
   Max: 8
@@ -41,7 +41,7 @@ Bundler/OrderedGems:
   Enabled: false
 
 Metrics/AbcSize:
-  Max: 35
+  Max: 40
 
 Naming:
   Enabled: false
