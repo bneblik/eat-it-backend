@@ -9,10 +9,10 @@ class User < ApplicationRecord
 
   enum gender: { man: 0, woman: 1 }
 
-  has_one :fridge
-  has_one :shopping_list
+  has_one :fridge, dependent: :destroy
+  has_one :shopping_list, dependent: :destroy
 
-  has_many :meals
-  has_many :comments
-  has_many :meal_plans
+  has_many :meals, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :meal_plans, dependent: :destroy
 end
