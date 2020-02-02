@@ -11,6 +11,7 @@ class UserAccessPolicy < PolicyFinder
         'destroy' => true
       },
       'api/v1/meals' => {
+        'index' => true,
         'update' => true,
         'destroy' => true,
         'create' => true

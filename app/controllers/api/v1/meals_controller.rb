@@ -10,14 +10,14 @@ module Api
 
       def index
         @meals = Meal.all
-        @meals = @meals.where('name like ?', "%#{params[:check]}%") unless params[:check].nil?
+        @meals = @meals.where('lower(name) = ?', params[:check]) unless params[:check].nil?
         @meals = @meals.where(meal_category_id: params[:meal_category_id].to_i) unless params[:meal_category_id].nil?
-        @meals = @meals.where(user_id: params[:user_id].to_i) unless params[:my_meal].nil?
+        @meals = @meals.where(user_id: current_user&.id) unless params[:my_meal].nil?
         @meals = @meals.page params[:page]
 
         render json: Api::V1::MealShortSerializer.new(
           @meals,
-          params: { user_id: params[:user_id].to_i || -1 }
+          params: { user_id: current_user&.id || -1 }
         ).serialized_json
       end
 
@@ -25,7 +25,7 @@ module Api
         @meals = Meal.order('rate DESC').limit(5)
         render json: Api::V1::MealShortSerializer.new(
           @meals,
-          params: { user_id: params[:user_id].to_i || -1 }
+          params: { user_id: current_user&.id || -1 }
         ).serialized_json
       end
 
@@ -51,6 +51,7 @@ module Api
           video: params[:video],
           meal_category_id: params[:meal_category_id].to_i
         )
+        @meal.update!(image: params[:image]) if params[:image].present?
         products = JSON.parse(params[:products], symbolize_names: true)
         recipes = JSON.parse(params[:recipes], symbolize_names: true)
 

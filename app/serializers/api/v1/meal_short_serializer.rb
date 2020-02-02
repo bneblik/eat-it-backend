@@ -11,6 +11,9 @@ module Api
       attribute :category do |object|
         object.meal_category&.name
       end
+      attribute :category_id do |object|
+        object.meal_category&.id
+      end
       attribute :rate do |object|
         object.rate / 1000.0
       end

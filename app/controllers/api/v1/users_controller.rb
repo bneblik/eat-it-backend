@@ -15,7 +15,7 @@ module Api
           height: params[:height].to_i,
           weight: params[:weight].to_i,
           age: params[:age].to_i,
-          gender: params[:gender].to_i
+          gender: params[:gender]
         )
 
         render json: Api::V1::UserSerializer.new(current_user).serialized_json
