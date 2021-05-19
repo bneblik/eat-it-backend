@@ -7,7 +7,7 @@ ruby '2.6.3'
 
 # Environment
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 4.3'
 gem 'rack-cors'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
